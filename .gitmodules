@@ -1,0 +1,3 @@
+[submodule "RSwDE"]
+	path = RSwDE
+	url = https://github.com/RubenSystems/RSwDE.git
