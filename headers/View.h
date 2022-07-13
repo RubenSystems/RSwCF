@@ -25,6 +25,10 @@ namespace rswcf {
 				res += tag;
 				res += close ? ">" : "/>";
 				
+				for (int i = 0; i < innerContent.size(); i ++) {
+					res += innerContent[i]->generate();
+				}
+				
 				if (close) {
 					res += "</";
 					res += tag;
@@ -45,8 +49,8 @@ namespace rswcf {
 	
 	
 	// convienence init
-	Generatable * view(core::Text && tag, const core::Array<Generatable *> & n_innerContent = core::Array<Generatable *>(), bool close = true) {
-		return new View(tag, n_innerContent, close);
+	Generatable * view(core::Text && tag, Generatable ** gen, int size, bool close = true) {
+		return new View(tag, core::Array<Generatable *>(gen, size), close);
 	}
 }
 
