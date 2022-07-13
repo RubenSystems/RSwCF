@@ -8,7 +8,7 @@
 #ifndef Generatable_h
 #define Generatable_h
 
-#include "../RSwDE/RSCore/Text.h"
+#include "../RSCore/Text.h"
 
 // Abstract class to define any object that can be generated(and by extension sent over to browser.)
 class Generatable {

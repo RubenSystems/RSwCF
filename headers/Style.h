@@ -8,7 +8,7 @@
 #ifndef Style_h
 #define Style_h
 
-#include "../RSwDE/RSCore/Text.h"
+#include "../RSCore/Text.h"
 
 namespace rswcf {
 	struct Style {
