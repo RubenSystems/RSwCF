@@ -15,7 +15,7 @@
 namespace rswcf {
 	class View : public Generatable {
 		public:
-			View(const core::Text & n_tag, const core::Array<Generatable *> & n_innerContent = core::Array<Generatable *>(), bool close = true) :
+			View(const core::Text & n_tag, core::Array<Generatable *> && n_innerContent = core::Array<Generatable *>(), bool close = true) :
 				tag(std::move(n_tag)), innerContent(std::move(n_innerContent)), close(close) {
 				
 			}
@@ -49,8 +49,8 @@ namespace rswcf {
 	
 	
 	// convienence init
-	Generatable * view(core::Text && tag, Generatable ** gen, int size, bool close = true) {
-		return new View(tag, core::Array<Generatable *>(gen, size), close);
+	Generatable * view(core::Text && tag, std::initializer_list<Generatable *> view_init, bool close = true) {
+		return new View(tag, core::Array<Generatable *>(view_init), close);
 	}
 }
 

@@ -19,10 +19,11 @@ namespace core {
 				Allocator<T>::allocate(initial_size);
 			}
 		
-			Array(T * data, int size) {
-				currentSize = size;
-				Allocator<T>::data = data;
-				data = nullptr;
+			Array(std::initializer_list<T> initaliser) : currentSize(initaliser.size()) {
+				Allocator<T>::data = (T *)initaliser.begin();
+				
+				Allocator<T>::allocated = initaliser.size();
+				out(Allocator<T>::allocated);
 			}
 		
 			
@@ -45,6 +46,7 @@ namespace core {
 
 			Array(Array && move) : currentSize(move.currentSize) {
 				Allocator<T>::data = move.Allocator<T>::data;
+				Allocator<T>::allocated = move.Allocator<T>::allocated;
 				move.Allocator<T>::data = nullptr;
 			}
 
@@ -60,6 +62,7 @@ namespace core {
 
 			Array & operator = (Array && move) {
 				Allocator<T>::data = move.Allocator<T>::data;
+				Allocator<T>::allocated = move.Allocator<T>::allocated;
 				move.Allocator<T>::data = nullptr;
 				
 				currentSize = move.currentSize;
