@@ -23,6 +23,19 @@ namespace rswcf {
 			core::Text generate() {
 				core::Text res = "<";
 				res += tag;
+				
+				
+				if (styles.size() > 0) {
+					res += " style='";
+					for (int i = 0; i < styles.size(); i ++) {
+						res += styles[i].name;
+						res += ":";
+						res += styles[i].value;
+						res += ";";
+					}
+					res += "'";
+				}
+				
 				res += close ? ">" : "/>";
 				
 				
@@ -44,6 +57,11 @@ namespace rswcf {
 				return res;
 			}
 		
+			View * addStyle(Style && style) {
+				styles.add(std::move(style));
+				return this;
+			}
+		
 		private:
 			core::Text tag;
 			core::Array<Style> styles;
@@ -53,7 +71,7 @@ namespace rswcf {
 	
 	
 	// convienence init
-	Generatable * view(core::Text && tag, std::initializer_list<Generatable *> view_init, bool close = true) {
+	View * view(core::Text && tag, std::initializer_list<Generatable *> view_init, bool close = true) {
 		return new View(tag, core::Array<Generatable *>(view_init), close);
 	}
 }

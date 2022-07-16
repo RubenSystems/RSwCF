@@ -90,7 +90,7 @@ namespace core {
 				Allocator<T>::operator[](currentSize ++) = std::move(item);
 			}
 		
-			// Construct and add (if you can come up with a better name email ruben.t.j@icloud.com)
+			// Construct and add (if you can come up with a better name email ruben@rubensystems.com)
 			template <typename... args>
 			void conadd(args && ... construction_parameters) {
 				if (currentSize >= Allocator<T>::allocated) {
