@@ -20,10 +20,15 @@ namespace core {
 			}
 		
 			Array(std::initializer_list<T> initaliser) : currentSize(initaliser.size()) {
-				Allocator<T>::data = (T *)initaliser.begin();
+//				Allocator<T>::data = (T *)initaliser.begin();
+//
+//				Allocator<T>::allocated = initaliser.size();
 				
-				Allocator<T>::allocated = initaliser.size();
-				out(Allocator<T>::allocated);
+				Allocator<T>::allocate(initaliser.size() + enlargement);
+				
+				for (int i = 0; i < initaliser.size(); i ++) {
+					Allocator<T>::data[i] = *(T *)std::move(initaliser.begin() + i);
+				}
 			}
 		
 			

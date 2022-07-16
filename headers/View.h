@@ -15,7 +15,7 @@
 namespace rswcf {
 	class View : public Generatable {
 		public:
-			View(const core::Text & n_tag, core::Array<Generatable *> && n_innerContent = core::Array<Generatable *>(), bool close = true) :
+			View(const core::Text & n_tag, const core::Array<Generatable *> & n_innerContent = core::Array<Generatable *>(), bool close = true) :
 				tag(std::move(n_tag)), innerContent(std::move(n_innerContent)), close(close) {
 				
 			}
@@ -25,9 +25,13 @@ namespace rswcf {
 				res += tag;
 				res += close ? ">" : "/>";
 				
+				
+				
 				for (int i = 0; i < innerContent.size(); i ++) {
 					res += innerContent[i]->generate();
+					
 				}
+				
 				
 				if (close) {
 					res += "</";
