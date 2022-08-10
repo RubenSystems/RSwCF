@@ -15,7 +15,7 @@ namespace rswcf {
 	class Content : public Generatable {
 		
 	public:
-		Content(core::Text n_text): text(std::move(n_text)) {}
+		Content(core::Text n_text): text(n_text) {}
 		
 		core::Text generate() {
 			return text;

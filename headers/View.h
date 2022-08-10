@@ -9,7 +9,7 @@
 #define View_h
 
 #include "Generatable.h"
-#include "Style.h"
+#include "Attribute.h"
 
 
 namespace rswcf {
@@ -19,6 +19,8 @@ namespace rswcf {
 				tag(std::move(n_tag)), innerContent(std::move(n_innerContent)), close(close) {
 				
 			}
+		
+
 		
 			core::Text generate() {
 				core::Text res = "<";
@@ -41,7 +43,8 @@ namespace rswcf {
 				
 				
 				for (int i = 0; i < innerContent.size(); i ++) {
-					res += innerContent[i]->generate();
+					core::Text child_content = innerContent[i]->generate();
+					res += child_content;
 					
 				}
 				
@@ -57,14 +60,14 @@ namespace rswcf {
 				return res;
 			}
 		
-			View * addStyle(Style && style) {
+			View * style(Attribute && style) {
 				styles.add(std::move(style));
 				return this;
 			}
 		
 		private:
 			core::Text tag;
-			core::Array<Style> styles;
+			core::Array<Attribute> styles;
 			core::Array<Generatable *> innerContent;
 			bool close;
 	};
