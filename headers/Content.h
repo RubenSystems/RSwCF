@@ -15,17 +15,17 @@ namespace rswcf {
 	class Content : public Generatable {
 		
 	public:
-		Content(core::Text n_text): text(n_text) {}
+		Content(std::string n_text): text(n_text) {}
 		
-		core::Text generate() {
+		std::string generate() {
 			return text;
 		}
 		
 	private:
-		core::Text text;
+		std::string text;
 	};
 	
-	Generatable * content(core::Text && text) {
+	Generatable * content(std::string && text) {
 		return new Content(std::move(text));
 	}
 }

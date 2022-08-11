@@ -8,12 +8,12 @@
 #ifndef Attribute_h
 #define Attribute_h
 
-#include "../rscore/Text.h"
+#include <string>
 
 namespace rswcf {
 	struct Attribute {
-		core::Text name;
-		core::Text value;
+		std::string name;
+		std::string value;
 	};
 }
 
