@@ -48,7 +48,7 @@ namespace rswcf {
 				for (Generatable * subview : inner_content) {
 					GeneratedResult generated_subview = subview->generate();
 					res.view_content += generated_subview.view_content;
-					res.styles[class_name] = styles;
+					res.styles.merge(styles);
 					res.styles.merge(generated_subview.styles);
 				}
 				
@@ -67,7 +67,7 @@ namespace rswcf {
 			
 			View * style(Attribute && attribute) {
 				std::string new_style = attribute.name + ": " +attribute.value+";";
-				styles.insert(0, new_style);
+				styles.insert({new_style, class_name});
 				return this;
 			}
 		
@@ -95,7 +95,7 @@ namespace rswcf {
 		private:
 			std::string tag, class_name;
 			std::unordered_multimap <std::string, std::string> attributes; // attribute -> [attribute value] e.g class -> [green]
-			std::string styles; // attribute -> [attribute value] e.g class -> [green]
+			std::unordered_multimap <std::string, std::string> styles; // style -> classes with that style
 			std::vector<Generatable *> inner_content;
 			bool close;
 	};
