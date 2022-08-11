@@ -25,8 +25,8 @@ namespace rswcf {
 		core::Text text;
 	};
 	
-	Generatable * content(core::Text text) {
-		return new Content(text);
+	Generatable * content(core::Text && text) {
+		return new Content(std::move(text));
 	}
 }
 

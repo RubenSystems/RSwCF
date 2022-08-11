@@ -10,6 +10,7 @@
 
 #include "Generatable.h"
 #include "Attribute.h"
+#include "../rscore/Dictionary.h"
 
 
 namespace rswcf {
@@ -25,18 +26,6 @@ namespace rswcf {
 			core::Text generate() {
 				core::Text res = "<";
 				res += tag;
-				
-				
-				if (styles.size() > 0) {
-					res += " style='";
-					for (int i = 0; i < styles.size(); i ++) {
-						res += styles[i].name;
-						res += ":";
-						res += styles[i].value;
-						res += ";";
-					}
-					res += "'";
-				}
 				
 				res += close ? ">" : "/>";
 				
@@ -60,14 +49,15 @@ namespace rswcf {
 				return res;
 			}
 		
-			View * style(Attribute && style) {
-				styles.add(std::move(style));
+			View * attr(Attribute && attribute) {
+//				attributes[attribute.name].add(attribute.value);
 				return this;
 			}
 		
+		
 		private:
 			core::Text tag;
-			core::Array<Attribute> styles;
+			core::Dictionary <core::Text, core::Array<core::Text>> attributes;
 			core::Array<Generatable *> innerContent;
 			bool close;
 	};
@@ -75,7 +65,7 @@ namespace rswcf {
 	
 	// convienence init
 	View * view(core::Text && tag, std::initializer_list<Generatable *> view_init, bool close = true) {
-		return new View(tag, core::Array<Generatable *>(view_init), close);
+		return new View(std::move(tag), core::Array<Generatable *>(view_init), close);
 	}
 }
 
