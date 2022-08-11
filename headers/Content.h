@@ -17,8 +17,8 @@ namespace rswcf {
 	public:
 		Content(std::string n_text): text(n_text) {}
 		
-		std::string generate() {
-			return text;
+		GeneratedResult generate() {
+			return {text, std::unordered_map<std::string, std::string>()};
 		}
 		
 	private:

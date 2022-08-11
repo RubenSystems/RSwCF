@@ -9,12 +9,20 @@
 #define Generatable_h
 
 #include <string>
+#include <unordered_map>
 
 // Abstract class to define any object that can be generated(and by extension sent over to browser.)
-class Generatable {
-	public:
-		virtual std::string generate() = 0;
+namespace rswcf {
+	struct GeneratedResult {
+		std::string view_content;
+		std::unordered_map<std::string, std::string> styles;
+	};
 	
-};
+	class Generatable {
+		public:
+			virtual GeneratedResult generate() = 0;
+		
+	};
+}
 
 #endif /* Generatable_h */
