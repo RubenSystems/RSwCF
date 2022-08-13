@@ -14,12 +14,12 @@
 #include <unordered_map>
 #include <vector>
 #include <random>
-
+#include <iostream>
 
 namespace rswcf {
 	class View : public Generatable {
 		public:
-			View(std::string && n_tag, std::vector<Generatable *> && n_inner_content, bool close = true) :
+		View(std::string && n_tag, std::vector<Generatable *> && n_inner_content = {}, bool close = true) :
 				tag(std::move(n_tag)), inner_content(std::move(n_inner_content)), close(close), class_name(generate_class_name()) {
 				attr({"class", class_name});
 			}
@@ -48,8 +48,16 @@ namespace rswcf {
 				for (Generatable * subview : inner_content) {
 					GeneratedResult generated_subview = subview->generate();
 					res.view_content += generated_subview.view_content;
-					res.styles.merge(styles);
-					res.styles.merge(generated_subview.styles);
+					
+					
+					res.styles.insert(generated_subview.styles.begin(), generated_subview.styles.end());
+					
+					delete subview;
+					subview = 0;
+				}
+				
+				if (styles.size() != 0) {
+					res.styles[class_name] = styles;
 				}
 				
 				if (close) {
@@ -67,7 +75,7 @@ namespace rswcf {
 			
 			View * style(Attribute && attribute) {
 				std::string new_style = attribute.name + ": " +attribute.value+";";
-				styles.insert({new_style, class_name});
+				styles.insert(0, new_style);
 				return this;
 			}
 		
@@ -95,14 +103,14 @@ namespace rswcf {
 		private:
 			std::string tag, class_name;
 			std::unordered_multimap <std::string, std::string> attributes; // attribute -> [attribute value] e.g class -> [green]
-			std::unordered_multimap <std::string, std::string> styles; // style -> classes with that style
+			std::string styles; // style -> classes with that style
 			std::vector<Generatable *> inner_content;
 			bool close;
 	};
 	
 	
 	// convienence init
-	View * view(std::string && tag, std::initializer_list<Generatable *> view_init, bool close = true) {
+	View * view(std::string && tag, std::initializer_list<Generatable *> view_init = {}, bool close = true) {
 		return new View(std::move(tag), std::vector<Generatable *>(view_init), close);
 	}
 }

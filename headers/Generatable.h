@@ -15,12 +15,14 @@
 namespace rswcf {
 	struct GeneratedResult {
 		std::string view_content;
-		std::unordered_multimap<std::string, std::string> styles;
+		std::unordered_map<std::string, std::string> styles;
 	};
 	
 	class Generatable {
 		public:
 			virtual GeneratedResult generate() = 0;
+		
+			virtual ~Generatable() {};
 		
 	};
 }

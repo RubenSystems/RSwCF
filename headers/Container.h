@@ -19,13 +19,9 @@ namespace rswcf {
 		view = "<!DOCTYPE html><head>" + generated_head.view_content + "<style>";
 		
 		std::string key;
-		for (auto & attribute_keys : generated_body.styles) {
-			key = attribute_keys.first;
-			auto values = generated_body.styles.equal_range(key);
-			for (auto it = values.first; it != values.second; ++it) {
-				view += ("."+it->second);
-			}
-			view += "{" + key + "}";
+		for (std::pair<const std::string, std::string> & attribute : generated_body.styles) {
+			
+			view += "." + attribute.first + "{" + attribute.second + "}";
 		}
 		
 		view += "</style></head>" + generated_body.view_content;
