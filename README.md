@@ -17,4 +17,16 @@ becomes
 	
 	view("h1", content("hello there"))
 	
+### Style
 
+Styles are added using the style function. e.g: 
+
+	<h1 style="color:pink;"> hello there </h1> 
+		
+is roughly equivalnt to 
+	
+	view("h1", content("hello there"))
+	->style({"color", "pink"})
+		
+
+RSwCF groups all the styles into a single stylesheet per container view. 
