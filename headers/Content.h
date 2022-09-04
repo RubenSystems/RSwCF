@@ -27,7 +27,11 @@ namespace rswcf {
 		std::string text;
 	};
 	
-	Generatable * content(std::string && text) {
+	Content * content(std::string && text) {
+		return new Content(std::move(text));
+	}
+	
+	Content * content(const std::string & text) {
 		return new Content(std::move(text));
 	}
 }

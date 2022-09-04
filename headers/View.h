@@ -87,7 +87,7 @@ namespace rswcf {
 
 				std::uniform_int_distribution<int> dist(0, 15);
 
-				const char *v = "0123456789abcdef";
+				const char *v = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 				const bool dash[] = { 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 				std::string res;

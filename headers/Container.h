@@ -16,7 +16,7 @@ namespace rswcf {
 		GeneratedResult generated_head = head->generate();
 		GeneratedResult generated_body = body->generate();
 		
-		view = "<!DOCTYPE html><head>" + generated_head.view_content + "<style>";
+		view = "<!DOCTYPE html><html><head>" + generated_head.view_content + "<style>*{margin:0; box-sizing: border-box;}";
 		
 		std::string key;
 		for (std::pair<const std::string, std::string> & attribute : generated_body.styles) {
@@ -24,7 +24,7 @@ namespace rswcf {
 			view += "." + attribute.first + "{" + attribute.second + "}";
 		}
 		
-		view += "</style></head>" + generated_body.view_content;
+		view += "</style></head><body>" + generated_body.view_content + "</body></html>";
 		
 		return view;
 				
